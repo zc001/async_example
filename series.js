@@ -1,4 +1,5 @@
 var async = require('async');
+
 /*
 	commonAPI
 
@@ -10,7 +11,6 @@ var async = require('async');
 
 	callback是传递的回调函数，按照async回调的格式，回调函数的第一个参数是错误值，第二个参数是传递值
 */
-
 function commonAPI (error, time_delay, callback) {
 	setTimeout(function () {
 		console.log('延时 %d 的操作完成， 错误是： %s', time_delay, String(error));
@@ -20,9 +20,7 @@ function commonAPI (error, time_delay, callback) {
 
 /*
 	firstTest
-	依次执行三个commonAPI
-
-
+	基础用法
 */
 function firstTest() {
 	async.series([
@@ -35,14 +33,19 @@ function firstTest() {
 		function (callback) {
 			commonAPI(null, 3000, callback);
 		}], 
-		function (error, result) {
+		function (error, results) {
 			console.log('final error: ', error);
-			console.log('final result: ', result);
+			console.log('final results: ', results);
 	});
 }
 
-firstTest();
+// firstTest();
 
+
+/*
+	secondTest
+	中间有错误信息传递
+*/
 function secondTest () {
 	async.series([
 		function (callback) {
@@ -54,13 +57,40 @@ function secondTest () {
 		function (callback) {
 			commonAPI(null, 3000, callback);
 		}], 
-		function (error, result) {
+		function (error, results) {
 			console.log('final error: ', error);
-			console.log('final result: ', result);
+			console.log('final results: ', results);
 	});
 }
 
 // secondTest();
+
+
+/*
+	thirdTest
+	以字典形式组织tasks
+*/
+function thirdTest () {
+	async.series({
+			a: function (callback) {
+				commonAPI(null, 1000, callback);
+			},
+			b: function (callback) {
+				commonAPI(null, 2000, callback);
+			},
+			c: function (callback) {
+				commonAPI(null, 3000, callback);
+			}
+		}, 
+		function (error, results) {
+			console.log('final error: ', error);
+			console.log('final results: ', results);	
+	});
+}
+
+// thirdTest();
+
+
 
 
 
