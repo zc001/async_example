@@ -22,11 +22,11 @@ function commonAPI (error, time_delay, callback) {
 	firstTest
 	基础用法
 */
-function firstTest() {
-	async.series([
+function firstTest () {
+	async.parallel([
 		function (callback) {
 			console.log('开始第一个任务');
-			commonAPI(null, 1000, callback);
+			commonAPI(null, 3000, callback);
 		},
 		function (callback) {
 			console.log('开始第二个任务');
@@ -34,27 +34,26 @@ function firstTest() {
 		},
 		function (callback) {
 			console.log('开始第三个任务');
-			commonAPI(null, 3000, callback);
+			commonAPI(null, 1000, callback);
 		}], 
 		function (error, results) {
 			console.log('进入最后的回调');
-			console.log('final error: ', error);
-			console.log('final results: ', results);
+			console.log('finial error: ', error);
+			console.log('results error: ', results);
 	});
 }
 
 // firstTest();
-
 
 /*
 	secondTest
 	中间有错误信息传递
 */
 function secondTest () {
-	async.series([
+	async.parallel([
 		function (callback) {
 			console.log('开始第一个任务');
-			commonAPI(null, 1000, callback);
+			commonAPI(null, 3000, callback);
 		},
 		function (callback) {
 			console.log('开始第二个任务');
@@ -62,43 +61,14 @@ function secondTest () {
 		},
 		function (callback) {
 			console.log('开始第三个任务');
-			commonAPI(null, 3000, callback);
+			commonAPI(null, 1000, callback);
 		}], 
 		function (error, results) {
 			console.log('进入最后的回调');
-			console.log('final error: ', error);
-			console.log('final results: ', results);
+			console.log('finial error: ', error);
+			console.log('results error: ', results);
 	});
 }
 
 // secondTest();
-
-
-/*
-	thirdTest
-	以字典形式组织tasks
-*/
-function thirdTest () {
-	async.series({
-			a: function (callback) {
-				commonAPI(null, 1000, callback);
-			},
-			b: function (callback) {
-				commonAPI(null, 2000, callback);
-			},
-			c: function (callback) {
-				commonAPI(null, 3000, callback);
-			}
-		}, 
-		function (error, results) {
-			console.log('final error: ', error);
-			console.log('final results: ', results);	
-	});
-}
-
-// thirdTest();
-
-
-
-
-
+	
