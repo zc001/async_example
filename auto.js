@@ -99,5 +99,6 @@ function thirdTest () {
 
 /*
     需要注意的是，secondTest和thirdTest虽然只有one以及four的延时时间对调外，别的都相同，但是运行结果是有差异的。
+    test
 */
 
